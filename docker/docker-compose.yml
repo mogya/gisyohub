@@ -14,7 +14,7 @@ services:
       - /etc/group:/etc/group:ro
       - /etc/passwd:/etc/passwd:ro
       - /etc/shadow:/etc/shadow:ro
-    user: ${UID}:${GID}
+    user: ${USER_ID}:${GROUP_ID}
   db:
     image: mysql:5
     environment: 
@@ -26,14 +26,13 @@ services:
       PGDATA: /app/db/mysql/data
     volumes_from:
       - data
-    user: ${UID}:${GID}
   nginx_dev:
     image: nginx
     ports:
      - "80:80"
     volumes_from:
       - data
-    user: ${UID}:${GID}
+    user: ${USER_ID}:${GROUP_ID}
   rails:
     build:
       context: ../rails
@@ -48,7 +47,8 @@ services:
       - data
     ports:
       - $RAILS_PORT:$RAILS_PORT
-    user: ${UID}:${GID}
+    user: ${USER_ID}:${GROUP_ID}
+    working_dir: /rails
   front:
     build:
       context: ../front
@@ -61,4 +61,4 @@ services:
      - $NODE_PORT:${NODE_PORT}
     environment:
       NODE_ENV: ${NODE_ENV}
-    user: ${UID}:${GID}
+    user: ${USER_ID}:${GROUP_ID}
