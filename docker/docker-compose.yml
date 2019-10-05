@@ -1,0 +1,64 @@
+version: '2'
+services:
+  data:
+    image: busybox
+    command: /bin/sh
+    volumes:
+      - /share
+      - ../rails:/rails
+      - ../front:/front
+      - ../log:/log
+      - ../db:/db
+      - ./nginx_dev/app.conf:/etc/nginx/conf.d/app.conf
+      - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+    user: ${UID}:${GID}
+  db:
+    image: mysql:5
+    environment: 
+      MYSQL_DATABASE: $PROJECT_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      PGDATA: /app/db/mysql/data
+    volumes_from:
+      - data
+    user: ${UID}:${GID}
+  nginx_dev:
+    image: nginx
+    ports:
+     - "80:80"
+    volumes_from:
+      - data
+    user: ${UID}:${GID}
+  rails:
+    build:
+      context: ../rails
+      dockerfile: docker/Dockerfile
+    environment:
+      RAILS_ENV: ${RAILS_ENV}
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /app/db/postgres/data
+    volumes_from:
+      - data
+    ports:
+      - $RAILS_PORT:$RAILS_PORT
+    user: ${UID}:${GID}
+  front:
+    build:
+      context: ../front
+      dockerfile: docker/Dockerfile
+    ports:
+     - "3010:3010"
+    volumes_from:
+      - data
+    ports:
+     - $NODE_PORT:${NODE_PORT}
+    environment:
+      NODE_ENV: ${NODE_ENV}
+    user: ${UID}:${GID}

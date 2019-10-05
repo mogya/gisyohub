@@ -1,0 +1,26 @@
+default: &default
+  adapter: mysql2
+  charset: utf8mb4
+  collation: utf8mb4_bin
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("PROJECT_NAME") { 'gishohub' } %>_development
+  username: <%= ENV.fetch("DB_USER") { 'root' } %>
+  #password:
+  host: db
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("PROJECT_NAME") { 'gishohub' } %>_test
+  username: <%= ENV.fetch("DB_USER") { 'root' } %>
+  #password:
+  host: db
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("PROJECT_NAME") { 'gishohub' } %>_production
+  username: <%= ENV.fetch("DB_USER") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>

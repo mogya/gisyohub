@@ -1,0 +1,10 @@
+export RAILS_ENV=development
+export NODE_ENV=development
+export RAILS_PORT=3000
+export NODE_PORT=3010
+export SECRET_KEY_BASE=xxxx
+export DB_HOST=db
+export DB_USER=db_user
+export DB_PASSWORD=
+export COMPOSE_PROJECT_NAME=gishohub
+export COMPOSE_FILE=docker/docker-compose.yml

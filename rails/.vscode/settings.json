@@ -1,0 +1,5 @@
+{
+  "docker-compose.files": [
+    "docker/docker-compose.yml"
+  ]
+}
