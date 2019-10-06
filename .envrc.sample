@@ -11,4 +11,5 @@ export COMPOSE_PROJECT_NAME=${PROJECT_NAME}
 export COMPOSE_FILE=docker/docker-compose.yml
 export USER_ID=$(id -u)
 export GROUP_ID=$(id -g)
-
+export TWITTER_KEY="xxxxxx"
+export TWITTER_SECRET="xxxxxx"

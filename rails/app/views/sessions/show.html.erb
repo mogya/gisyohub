@@ -1,0 +1,19 @@
+<body>
+  <header>
+    <% if logged_in? %>
+      <%= link_to 'Logout', '/signout' %>
+    <% else %>
+      <%= link_to 'Twitter Login', '/auth/twitter' %>
+    <% end %>
+  </header>
+  <% if flash[:notice] %>
+    <div class="notice">
+      <%= flash[:notice]%>
+    </div>
+  <% end %>
+  <% if logged_in? %>
+    <h1>こんにちは、<%=  current_user.user_name %>さん</h1>
+  <% else %>
+    <p>ログインしてください</p>
+  <% end %>
+</body>

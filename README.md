@@ -15,7 +15,8 @@ $ docker-compose up -d
 # development(rails)
 
 ```
-$ docker-compose run rails bash
+$ docker exec -it gishohub_rails_1 bash
+/rails$ ./bin/rails s -b 0.0.0.0
 ```
 
 
