@@ -1,14 +1,12 @@
 cd /rails
-mkdir -p /log/unicorn/
-mkdir -p /log/nginx/
-mkdir -p /db/postgres/data
-mkdir -p /db/mysql/data
+mkdir -p /log/rails/
+
 echo "RAILS_ENV:$RAILS_ENV"
 if [ "$RAILS_ENV" = "development" ]
 then
   echo 'just start container and wait connection.'
-  pwd
-  ls -la
+  # pwd
+  # ls -la
   tail -f /dev/null
 else
   echo 'rake db:migrate'

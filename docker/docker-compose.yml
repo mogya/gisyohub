@@ -30,9 +30,19 @@ services:
     image: nginx
     ports:
      - "80:80"
-    volumes_from:
-      - data
-    user: ${USER_ID}:${GROUP_ID}
+     - "1080:1080"
+    # volumes_from:
+    #   - data
+    volumes:
+      - ./nginx_dev:/nginx
+      - ../log:/log
+    depends_on: 
+      - rails
+      - front
+    environment: 
+      RAILS_PORT: $RAILS_PORT
+      NODE_PORT: $NODE_PORT
+    command: /bin/bash /nginx/start.sh
   rails:
     build:
       context: ../rails
@@ -44,7 +54,9 @@ services:
       - DB_PASSWORD
       - TWITTER_KEY
       - TWITTER_SECRET
-
+    depends_on: 
+      - db
+      - data
     volumes_from:
       - data
     ports:
@@ -55,12 +67,10 @@ services:
     build:
       context: ../front
       dockerfile: docker/Dockerfile
-    ports:
-     - "3010:3010"
     volumes_from:
       - data
     ports:
-     - $NODE_PORT:${NODE_PORT}
+     - $NODE_PORT:$NODE_PORT
     environment:
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: $NODE_ENV
     user: ${USER_ID}:${GROUP_ID}
