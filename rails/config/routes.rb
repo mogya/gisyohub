@@ -2,8 +2,10 @@
 
 Rails.application.routes.draw do
   root 'sessions#show'
+  get '/sessions/new', to: 'sessions#new'
+  # we cannot use "resources session" to map /sessions/destroy without id...
+  post '/sessions/destroy', to: 'sessions#destroy'
   get '/auth/:provider/callback', to: 'sessions#create'
-  get '/signout', to: 'sessions#destroy'
 
   mount SwaggerUiEngine::Engine, at: '/'
   mount V1::Root => '/api/v1'
