@@ -1,7 +1,7 @@
-mkdir -p log/front/
+mkdir -p /log/front/
 if [ "$NODE_ENV" = "development" ]
 then
-  echo 'start bash.'
+  yarn dev &
   /bin/bash && tail -f /dev/null
 else
   echo 'start bash for production(temporary).'

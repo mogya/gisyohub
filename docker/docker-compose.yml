@@ -29,10 +29,7 @@ services:
   nginx_dev:
     image: nginx
     ports:
-     - "80:80"
      - "1080:1080"
-    # volumes_from:
-    #   - data
     volumes:
       - ./nginx_dev:/nginx
       - ../log:/log
@@ -73,4 +70,6 @@ services:
      - $NODE_PORT:$NODE_PORT
     environment:
       NODE_ENV: $NODE_ENV
+      NUXT_HOST: 0.0.0.0
+      NUXT_PORT: $NODE_PORT
     user: ${USER_ID}:${GROUP_ID}
