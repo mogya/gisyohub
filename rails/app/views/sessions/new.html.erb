@@ -1,13 +1,8 @@
 <body>
   <header>
-    <% if logged_in? %>
-      <%= form_tag(sessions_destroy_path, method: :post) do %>
-        <%= submit_tag("logout") %>
-      <% end %>
-    <% else %>
-      <%= form_tag("/auth/twitter") do %>
-        <%= submit_tag("Sign in via twitter") %>
-      <% end %>
+    これからTwitterのログイン画面に遷移します。
+    <%= form_tag("/auth/twitter") do %>
+      <%= submit_tag("Sign in via twitter") %>
     <% end %>
   </header>
 </body>

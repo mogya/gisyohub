@@ -1,31 +1,28 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
-        gisyohub
+        gisyohub/author
       </h1>
       <h2 class="subtitle">
         My prime Nuxt.js project
       </h2>
-      <div class="links">
-        <a
-          href="author"
-          class="button--green"
-        >
-          author page
-        </a>
+      <div class="links" v-if="this.$auth.loggedIn">
+        Hello {{ this.$auth.user.user_name }}.
+        <button v-on:click="onclickLogout">Logout</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  middleware: 'auth',
+  methods:{
+    async onclickLogout(event){
+      const ret = await this.$auth.logout()
+      console.log(ret);
+    }
   }
 }
 </script>

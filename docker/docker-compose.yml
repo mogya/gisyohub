@@ -29,7 +29,7 @@ services:
   nginx_dev:
     image: nginx
     ports:
-     - "1080:1080"
+     - ${WEB_PORT}:${WEB_PORT}
     volumes:
       - ./nginx_dev:/nginx
       - ../log:/log
@@ -72,4 +72,5 @@ services:
       NODE_ENV: $NODE_ENV
       NUXT_HOST: 0.0.0.0
       NUXT_PORT: $NODE_PORT
+      API_PORT: $WEB_PORT
     user: ${USER_ID}:${GROUP_ID}

@@ -28,6 +28,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/csrf-handler'    
   ],
   /*
   ** Nuxt.js dev-modules
@@ -42,13 +43,31 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/pwa',
+    ['cookie-universal-nuxt', { parseJSON: false }]
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    port: 1080,
+  },
+  auth: {
+    redirect: {
+      login: 'http://localhost:1080/sessions/new',   // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          user: { url: '/sessions/', method: 'get', propertyName: false },
+          logout: { url: '/sessions/destroy', method: 'post', propertyName: false },
+        },
+        tokenRequired: false,
+        tokenType: false
+      }
+    }
   },
   /*
   ** Build configuration
