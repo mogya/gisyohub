@@ -74,13 +74,16 @@ export default {
     preset: 'default',
     injected: true,
     breaks: true,
-    html: true,
+    html: false,
     linkify: true,
     typography: true,
     xhtmlOut: true,
     langPrefix: 'language-',
     quotes: '“”‘’',
     highlight: function (/*str, lang*/) { return ''; },
+    use: [
+      'markdown-it-emoji'
+    ]
   },
   /*
   ** Build configuration
