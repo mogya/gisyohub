@@ -1,4 +1,4 @@
-
+const webpack = require('webpack')
 export default {
   mode: 'spa',
   /*
@@ -28,7 +28,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/csrf-handler'    
+    '~/plugins/csrf-handler'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,7 +45,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
-    ['cookie-universal-nuxt', { parseJSON: false }]
+    ['cookie-universal-nuxt', { parseJSON: false }],
+    '@nuxtjs/markdownit'
   ],
   /*
   ** Axios module configuration
@@ -68,6 +69,18 @@ export default {
         tokenType: false
       }
     }
+  },
+  markdownit: {
+    preset: 'default',
+    injected: true,
+    breaks: true,
+    html: true,
+    linkify: true,
+    typography: true,
+    xhtmlOut: true,
+    langPrefix: 'language-',
+    quotes: '“”‘’',
+    highlight: function (/*str, lang*/) { return ''; },
   },
   /*
   ** Build configuration
