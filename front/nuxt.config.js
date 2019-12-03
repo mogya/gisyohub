@@ -28,7 +28,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/csrf-handler'
+    '~/plugins/csrf-handler',
+    '~/plugins/localstorage'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -93,6 +94,17 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+      // if (!ctx.isDev) {
+      //   config.output.publicPath = '_nuxt/'
+      // }
+    },
+    filenames: {
+      app: () => '[name].js',
+      chunk: () => '[name].js',
+      css: () => '[name].js',
+      img: () => '[path][name].[ext]',
+      font: () => '[path][name].[ext]',
+      video: () => '[path][name].[ext]'
+    },
   }
 }
