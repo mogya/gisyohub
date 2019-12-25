@@ -29,9 +29,11 @@ services:
   nginx_dev:
     image: nginx
     ports:
-     - ${WEB_PORT}:${WEB_PORT}
+     - "80:${WEB_PORT}"
+     - "${WEB_PORT}:${WEB_PORT}"
     volumes:
       - ./nginx_dev:/nginx
+      - ../front:/front
       - ../log:/log
     depends_on: 
       - rails
@@ -46,14 +48,15 @@ services:
       dockerfile: docker/Dockerfile
     environment:
       - RAILS_ENV
-      - DB_HOST=db
+      - DB_HOST
+      - DB_NAME
       - DB_USER
       - DB_PASSWORD
       - TWITTER_KEY
       - TWITTER_SECRET
     depends_on: 
-      - db
       - data
+      - db
     volumes_from:
       - data
     ports:

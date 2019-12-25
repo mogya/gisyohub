@@ -12,14 +12,19 @@
 
 ActiveRecord::Schema.define(version: 2019_10_05_204952) do
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "user_name"
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.string "user_name", null: false
     t.string "image_url"
     t.string "email"
+    t.string "access_token", null: false
+    t.string "access_secret", null: false
+    t.text "raw_auth"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider"], name: "index_users_on_provider"
+    t.index ["uid"], name: "index_users_on_uid"
   end
 
 end

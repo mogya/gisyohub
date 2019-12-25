@@ -4,23 +4,18 @@ default: &default
   collation: utf8mb4_bin
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("DB_HOST") { 'db' } %>
+  username: <%= ENV.fetch("DB_USER") { 'root' } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { '' } %>
 
 development:
   <<: *default
-  database: <%= ENV.fetch("PROJECT_NAME") { 'gishohub' } %>_development
-  username: <%= ENV.fetch("DB_USER") { 'root' } %>
-  #password:
-  host: db
+  database: <%= ENV.fetch("DB_NAME") { 'gishohub' } %>_dev
 
 test:
   <<: *default
-  database: <%= ENV.fetch("PROJECT_NAME") { 'gishohub' } %>_test
-  username: <%= ENV.fetch("DB_USER") { 'root' } %>
-  #password:
-  host: db
+  database: <%= ENV.fetch("DB_NAME") { 'gishohub' } %>_test
 
 production:
   <<: *default
-  database: <%= ENV.fetch("PROJECT_NAME") { 'gishohub' } %>_production
-  username: <%= ENV.fetch("DB_USER") %>
-  password: <%= ENV.fetch("DB_PASSWORD") %>
+  database: <%= ENV.fetch("DB_NAME") { 'gishohub_dev' } %>_production
