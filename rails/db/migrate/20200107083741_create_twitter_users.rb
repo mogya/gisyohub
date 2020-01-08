@@ -1,14 +1,14 @@
 class CreateTwitterUsers < ActiveRecord::Migration[6.0]
   def change
     create_table :twitter_users do |t|
-      t.bigint :twitter_user_id
-      t.string :name
-      t.string :screen_name
-      t.string :location
-      t.text :description
-      t.string :url
-      t.text :profile_image_url
-      t.text :row
+      t.bigint :twitter_user_id, null: false
+      t.string :name, null: false
+      t.string :screen_name, null: false
+      t.string :location, null: true
+      t.text :description, null: true
+      t.string :url, null: true
+      t.text :profile_image_url, null: true
+      t.text :row, null: false
 
       t.timestamps
     end

@@ -15,8 +15,10 @@ class Tweet < ApplicationRecord
   def attrs=(attrs)
     self.tweet_id = attrs.id
     self.user_id = attrs.user.id
-    self.text = attrs.text
-    # self.url = attrs.url  #TODO: What's the url?
+    self.tweeted_at = attrs.created_at
+    keys = %i[text]
+    keys.each { |key| self[key] = attrs[key] }
+
     self.row = attrs.to_json
   end
 end
