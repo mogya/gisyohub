@@ -10,7 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_204952) do
+ActiveRecord::Schema.define(version: 2020_01_07_083748) do
+
+  create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "tweet_id"
+    t.bigint "user_id"
+    t.string "text"
+    t.string "url"
+    t.text "row"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["text"], name: "index_tweets_on_text"
+    t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
+    t.index ["user_id"], name: "index_tweets_on_user_id"
+  end
+
+  create_table "twitter_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "twitter_user_id"
+    t.string "name"
+    t.string "screen_name"
+    t.string "location"
+    t.text "description"
+    t.string "url"
+    t.text "profile_image_url"
+    t.text "row"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_twitter_users_on_name"
+    t.index ["screen_name"], name: "index_twitter_users_on_screen_name"
+    t.index ["twitter_user_id"], name: "index_twitter_users_on_twitter_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "provider", null: false
