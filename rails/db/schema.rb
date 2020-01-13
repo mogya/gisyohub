@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_083748) do
+ActiveRecord::Schema.define(version: 2020_01_09_053009) do
+
+  create_table "job_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "job_type", null: false
+    t.text "variable_json"
+    t.datetime "started_at", null: false
+    t.datetime "finished_at"
+    t.text "log"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["finished_at"], name: "index_job_logs_on_finished_at"
+    t.index ["job_type"], name: "index_job_logs_on_job_type"
+    t.index ["started_at"], name: "index_job_logs_on_started_at"
+  end
 
   create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "tweet_id", null: false
