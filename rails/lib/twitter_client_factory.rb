@@ -16,6 +16,6 @@ end
 =begin
 require 'twitter_client_factory'
 client = TwitterClientFactory.new_client
-client.search("#ruby -rt", lang: "ja").first.text
-=> "今はCloud9を使ってるからだいぶマシになったけど..."
+client.status(1212685082063884288, tweet_mode: "extended").text
+=> ""「の直後に」が来て..."
 =end

@@ -87,3 +87,4 @@ yarn-debug.log*
 /db/mysql
 /db/postgres
 rails/vendor/gems/
+*.code-workspace
