@@ -35,7 +35,7 @@ services:
     environment:
       - PORT=$RAILS_PORT
       - RAILS_ENV=production
-      - RAILS_MASTER_KEY
+      - SECRET_KEY_BASE
       - DB_HOST
       - DB_NAME
       - DB_USER
