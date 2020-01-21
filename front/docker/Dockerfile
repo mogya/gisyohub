@@ -1,5 +1,4 @@
 FROM node:12-stretch-slim
-WORKDIR /front
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends\
     apt-utils gcc g++ bzip2 make autoconf \
@@ -7,4 +6,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN yarn install
 
-CMD ["sh", "/front/docker/start.sh"]
+CMD ["sh", "docker/start.sh"]

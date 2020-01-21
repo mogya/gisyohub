@@ -19,3 +19,4 @@ client = TwitterClientFactory.new_client
 client.status(1212685082063884288, tweet_mode: "extended").text
 => ""「の直後に」が来て..."
 =end
+

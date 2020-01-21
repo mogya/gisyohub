@@ -1,4 +1,3 @@
-mkdir -p /log/front/
 if [ "$NODE_ENV" = "development" ]
 then
   yarn dev &

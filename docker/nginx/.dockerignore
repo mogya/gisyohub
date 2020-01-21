@@ -1,0 +1,6 @@
+# we use root directory as nginx docker context to copy front content. but we don't need other directories.
+README.md
+*.code-workspace
+db
+log
+rails

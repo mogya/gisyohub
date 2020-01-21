@@ -23,57 +23,55 @@ services:
       MYSQL_PASSWORD: $DB_PASSWORD
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      PGDATA: /app/db/mysql/data
+      PGDATA: /db/mysql/data
     volumes_from:
       - data
-  nginx_dev:
-    image: nginx
-    ports:
-     - "80:${WEB_PORT}"
-     - "${WEB_PORT}:${WEB_PORT}"
-    volumes:
-      - ./nginx_dev:/nginx
-      - ../front:/front
-      - ../log:/log
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
     depends_on: 
       - rails
       - front
-    environment: 
-      RAILS_PORT: $RAILS_PORT
-      NODE_PORT: $NODE_PORT
-    command: /bin/bash /nginx/start.sh
+    ports:
+     - "80:${WEB_PORT}"
+     - "${WEB_PORT}:${WEB_PORT}"
+    environment:
+      - PORT=$WEB_PORT
+      - RAILS_PORT
+      - NODE_PORT
   rails:
     build:
       context: ../rails
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.development
+    working_dir: /rails
+    depends_on:
+      - db
+    ports:
+      - $RAILS_PORT:$RAILS_PORT
+    volumes_from:
+      - data
     environment:
-      - RAILS_ENV
+      - RAILS_ENV=development
       - DB_HOST
       - DB_NAME
       - DB_USER
       - DB_PASSWORD
       - TWITTER_KEY
       - TWITTER_SECRET
-    depends_on: 
-      - data
-      - db
-    volumes_from:
-      - data
-    ports:
-      - $RAILS_PORT:$RAILS_PORT
     user: ${USER_ID}:${GROUP_ID}
-    working_dir: /rails
   front:
     build:
       context: ../front
       dockerfile: docker/Dockerfile
-    volumes_from:
-      - data
+    working_dir: /front
     ports:
      - $NODE_PORT:$NODE_PORT
+    volumes_from:
+      - data
     environment:
-      NODE_ENV: $NODE_ENV
-      NUXT_HOST: 0.0.0.0
-      NUXT_PORT: $NODE_PORT
-      API_PORT: $WEB_PORT
+      - NODE_ENV=development
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=$NODE_PORT
+      - API_PORT=$WEB_PORT
     user: ${USER_ID}:${GROUP_ID}

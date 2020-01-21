@@ -23,3 +23,5 @@ bower.json
 users.yml
 db/postgres
 .byebug_history
+
+/config/master.key

@@ -12,10 +12,10 @@ gem 'grape-swagger'
 gem 'mysql2'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-twitter'
-gem 'puma', '~> 3.12'
 gem 'rails', '~> 6.0.0'
 gem 'swagger_ui_engine'
 gem 'twitter', github: 'mogya/twitter-gem'
+gem 'unicorn'
 
 group :development, :test do
   gem 'better_errors'

@@ -1,0 +1,45 @@
+version: '2'
+services:
+  db:
+    image: mysql:5
+    environment: 
+      MYSQL_DATABASE: $PROJECT_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      PGDATA: /db
+    volumes:
+      - ../mysql:/var/lib/mysql
+      - ../db:/db
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+     - "80:${WEB_PORT}"
+     - "${WEB_PORT}:${WEB_PORT}"
+    environment:
+      - PORT=$WEB_PORT
+      - RAILS_PORT
+      - NODE_PORT
+  rails:
+    build:
+      context: ../rails
+      dockerfile: docker/Dockerfile.production
+    working_dir: /rails
+    depends_on: 
+      - db
+    ports:
+      - $RAILS_PORT:$RAILS_PORT
+    environment:
+      - PORT=$RAILS_PORT
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY
+      - DB_HOST
+      - DB_NAME
+      - DB_USER
+      - DB_PASSWORD
+      - TWITTER_KEY
+      - TWITTER_SECRET
+  # we do not use front container since nginx provides pre-compiled contents from front directory.

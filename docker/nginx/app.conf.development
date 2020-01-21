@@ -1,8 +1,8 @@
 upstream rails_server {
-  server rails:3000;
+  server rails:${RAILS_PORT};
 }
 upstream front_server {
-  server front:3010;
+  server front:${NODE_PORT};
 }
 server {
   listen 1080;
