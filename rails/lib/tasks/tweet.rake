@@ -1,8 +1,22 @@
+# frozen_string_literal: true
+
 require 'twitter_client_factory'
-namespace :tweet do
+
+namespace :twitter do
   desc 'call twitter api and store tweets'
-  task :scrape do
-    client = TwitterClientFactory.new_client
-    client.search("#ruby -rt", lang: "ja").first.text
+  task scrape: :environment do
+    TwitterScrapeJobs::SearchGijyutsushoten.perform_now
+  end
+
+  desc 'store favorited tweets'
+  task scrape_favorited: :environment do
+    TwitterScrapeJobs::Favorites.perform_now
+  end
+
+  if Rails.env.development?
+    desc '[DANGER] delete all tweets'
+    task delete_all_tweet_this_is_danger_method: :environment do
+      Tweet.all.each(&:destroy)
+    end
   end
 end

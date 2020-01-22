@@ -13,4 +13,9 @@ class JobLog < ApplicationRecord
   def set_variables
     self.variable_json = @variables.to_json
   end
+
+  def finish(at = Time.zone.now)
+    self.finished_at = at
+    save
+  end
 end
