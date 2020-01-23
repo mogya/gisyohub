@@ -1,8 +1,8 @@
 upstream rails_server {
-  server rails:${RAILS_PORT};
+  server localhost:${RAILS_PORT};
 }
 server {
-  listen 1080;
+  listen 80;
 
   location /api/ {
       proxy_set_header X-Real-IP  $remote_addr;
