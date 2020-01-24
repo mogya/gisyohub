@@ -13,6 +13,7 @@ services:
       - PORT=$WEB_PORT
       - RAILS_PORT
       - NODE_PORT
+      - NODE_ENV=production
   rails:
     build:
       context: ../rails

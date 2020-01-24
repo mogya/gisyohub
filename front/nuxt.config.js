@@ -58,7 +58,7 @@ export default {
   },
   auth: {
     redirect: {
-      login: 'http://localhost:1080/sessions/new',   // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
+      login: '/sessions/new',   // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
     },
     strategies: {
       local: {
