@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe TwitterScrapeFavoritesJob, type: :job do
+RSpec.describe TwitterScrapeJobs::Favorites, type: :job do
   pending "add some examples to (or delete) #{__FILE__}"
 end
