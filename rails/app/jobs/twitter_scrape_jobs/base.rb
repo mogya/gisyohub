@@ -21,7 +21,6 @@ module TwitterScrapeJobs
       count = store_tweets(tweets)
       update_job_log(tweets)
 
-      logger.info("#{self.class.name} done. #{count} tweets stored.")
       STDOUT.puts("#{self.class.name} done. #{count} tweets stored.")
     end
 
@@ -40,7 +39,9 @@ module TwitterScrapeJobs
           "#{self.class.name} store a tweet: #{tweet.id} #{tweet.created_at}"
         )
         count += 1 if Tweet.store(tweet)
+        TwitterUser.store(tweet.user)
       end
+      logger.info("#{self.class.name} done. #{count} tweets stored.")
       count
     end
   end

@@ -17,6 +17,7 @@ namespace :twitter do
     desc '[DANGER] delete all tweets'
     task delete_all_tweet_this_is_danger_method: :environment do
       Tweet.all.each(&:destroy)
+      JobLog.where("job_type like 'TwitterScrapeJobs::%'").each(&:destroy)
     end
   end
 end

@@ -16,7 +16,8 @@ class Tweet < ApplicationRecord
     self.tweet_id = attrs.id
     self.user_id = attrs.user.id
     self.tweeted_at = attrs.created_at
-    self.text = attrs.text
+    keys = %i[text]
+    keys.each { |key| self[key] = attrs.send(key) }
 
     self.row = attrs.to_json
   end
