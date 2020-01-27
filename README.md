@@ -1,8 +1,10 @@
+![Docker Image CI](https://github.com/mogya/gisyohub/workflows/Docker%20Image%20CI/badge.svg)
+
 # depends on
 
 - direnv
 - docker
-- docker compose
+- docker-compose
 
 # start
 
