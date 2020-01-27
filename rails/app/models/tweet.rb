@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 # Twitter tweet class
 class Tweet < ApplicationRecord
+  belongs_to :twitter_user,
+             primary_key: 'twitter_user_id',
+             foreign_key: 'user_id'
+
   # store tweet from twitter api response
   def self.store(tweet_object)
     unless tweet_object.text && tweet_object.user
