@@ -40,7 +40,7 @@ services:
   rails:
     build:
       context: ../rails
-      dockerfile: docker/Dockerfile.development
+      dockerfile: docker/Dockerfile.test
       args:
         - RUBY_VERSION
     working_dir: /rails
