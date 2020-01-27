@@ -19,7 +19,7 @@ jobs:
       PROJECT_NAME: gisyohub
       SECRET_KEY_BASE: xxxxx
       COMPOSE_PROJECT_NAME: gisyohub_ci
-      COMPOSE_FILE: docker/docker-compose.development.yml
+      COMPOSE_FILE: docker/docker-compose.test.yml
       TWITTER_KEY: "DUMMY_TWITTER_KEY"
       TWITTER_SECRET: "DUMMY_TWITTER_SECRET"
       TWITTER_ACCESS_TOKEN: "DUMMY_TWITTER_ACCESS_TOKEN"
