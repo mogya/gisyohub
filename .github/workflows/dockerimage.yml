@@ -8,6 +8,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
+      RUBY_VERSION: 2.6.5
       RAILS_PORT: 3000
       NODE_PORT: 3010
       WEB_PORT: 1080
