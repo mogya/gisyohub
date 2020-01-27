@@ -8,13 +8,23 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      DJANGO_SETTINGS_MODULE: app_name.settings.dev
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      PORT: 8000
-      PG_DB: ${{ secrets.PG_DB }}
-      PG_PASS: ${{ secrets.PG_PASS }}
-      PG_USER: ${{ secrets.USER }}
+      RAILS_PORT: 3000
+      NODE_PORT: 3010
+      WEB_PORT: 1080
+      DB_HOST: db
+      DB_NAME: gisyohub
+      DB_USER: root
+      DB_PASSWORD: ""
+      PROJECT_NAME: gisyohub
+      SECRET_KEY_BASE: xxxxx
+      COMPOSE_PROJECT_NAME: gisyohub_ci
+      COMPOSE_FILE: docker/docker-compose.development.yml
+      TWITTER_KEY: "DUMMY_TWITTER_KEY"
+      TWITTER_SECRET: "DUMMY_TWITTER_SECRET"
+      TWITTER_ACCESS_TOKEN: "DUMMY_TWITTER_ACCESS_TOKEN"
+      TWITTER_ACCESS_SECRET: "DUMMY_TWITTER_ACCESS_SECRET"
+      USER_ID: 0
+      GROUP_ID: 0
 
     steps:
     - uses: actions/checkout@v1
