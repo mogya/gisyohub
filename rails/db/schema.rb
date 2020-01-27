@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_053009) do
+ActiveRecord::Schema.define(version: 2020_01_27_021103) do
 
   create_table "job_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "job_type", null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_01_09_053009) do
 
   create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "tweet_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "twitter_user_id", null: false
     t.string "text", null: false
     t.text "row", null: false
     t.datetime "tweeted_at", null: false
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_053009) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["text"], name: "index_tweets_on_text"
     t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
+    t.index ["twitter_user_id"], name: "index_tweets_on_twitter_user_id"
     t.index ["updated_at"], name: "index_tweets_on_updated_at"
-    t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
   create_table "twitter_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

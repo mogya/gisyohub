@@ -8,7 +8,7 @@ class TwitterUser < ApplicationRecord
     end
     return if exists?(twitter_user_id: user_object.id)
 
-    create { |record| record.attrs = user_object }
+    create! { |record| record.attrs = user_object }
   end
 
   def attrs=(attrs)

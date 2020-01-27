@@ -39,7 +39,6 @@ module TwitterScrapeJobs
           "#{self.class.name} store a tweet: #{tweet.id} #{tweet.created_at}"
         )
         count += 1 if Tweet.store(tweet)
-        TwitterUser.store(tweet.user)
       end
       logger.info("#{self.class.name} done. #{count} tweets stored.")
       count

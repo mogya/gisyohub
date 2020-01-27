@@ -8,7 +8,7 @@ RSpec.describe Tweet, type: :model do
     let(:tweet_object) { build(:twitter_tweet_response) }
     it 'assings tweet parameters' do
       expect(subject.tweet_id).to eq tweet_object.id
-      expect(subject.user_id).to eq tweet_object.user.id
+      expect(subject.twitter_user_id).to eq tweet_object.user.id
       expect(subject.text).to eq tweet_object.text
       expect(subject.tweeted_at).to eq tweet_object.created_at
     end
