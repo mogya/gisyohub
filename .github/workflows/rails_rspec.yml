@@ -41,3 +41,15 @@ jobs:
       run: docker exec gisyohub_ci_rails_1 /rails/bin/setup
     - name: Run test suite
       run: docker exec gisyohub_ci_rails_1 /rails/bin/rails spec
+    - name: Slack Notification
+      uses: homoluctus/slatify@master
+      if: always()
+      with:
+        type: ${{ job.status }}
+        job_name: '*rails rspec*'
+        mention: 'here'
+        mention_if: 'failure'
+        channel: '#times_gisyohub'
+        url: ${{ secrets.SLACK_WEBHOOK_GISYOHUB }}
+        commit: true
+        token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}
