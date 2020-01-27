@@ -33,13 +33,11 @@ jobs:
       run: docker-compose build
     - name: start docker db container
       run: docker-compose up -d db
-    - name: Sleep for 30 seconds
-      uses: jakejarvis/wait-action@master
-      with:
-        time: '30s'
     - name: start docker rails container
       run: docker-compose up -d rails
     - name: Check running containers
       run: docker ps
+    - name: Run setup
+      run: docker exec gisyohub_ci_rails_1 /rails/bin/setup
     - name: Run test suite
-      run: docker exec gisyohub_ci_rails_1 "/rails/bin/setup && /rails/bin/rails spec"
+      run: docker exec gisyohub_ci_rails_1 /rails/bin/rails spec
