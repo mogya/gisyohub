@@ -1,0 +1,55 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      RUBY_VERSION: 2.6.5
+      RAILS_PORT: 3000
+      NODE_PORT: 3010
+      WEB_PORT: 1080
+      DB_HOST: db
+      DB_NAME: gisyohub
+      DB_USER: root
+      DB_PASSWORD: ""
+      PROJECT_NAME: gisyohub
+      SECRET_KEY_BASE: xxxxx
+      COMPOSE_PROJECT_NAME: gisyohub_ci
+      COMPOSE_FILE: docker/docker-compose.test.yml
+      TWITTER_KEY: "DUMMY_TWITTER_KEY"
+      TWITTER_SECRET: "DUMMY_TWITTER_SECRET"
+      TWITTER_ACCESS_TOKEN: "DUMMY_TWITTER_ACCESS_TOKEN"
+      TWITTER_ACCESS_SECRET: "DUMMY_TWITTER_ACCESS_SECRET"
+      USER_ID: 1000
+      GROUP_ID: 1000
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the docker-compose stack
+      run: docker-compose build
+    - name: start docker db container
+      run: docker-compose up -d db
+    - name: start docker rails container
+      run: docker-compose up -d rails
+    - name: Check running containers
+      run: docker ps
+    - name: Run setup
+      run: docker exec gisyohub_ci_rails_1 /rails/bin/setup
+    - name: Run test suite
+      run: docker exec gisyohub_ci_rails_1 /rails/bin/rails spec
+    - name: Slack Notification
+      uses: homoluctus/slatify@master
+      if: always()
+      with:
+        type: ${{ job.status }}
+        job_name: '*rails rspec*'
+        mention: 'here'
+        mention_if: 'failure'
+        channel: '#times_gisyohub'
+        url: ${{ secrets.SLACK_WEBHOOK_GISYOHUB }}
+        commit: true
+        token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}

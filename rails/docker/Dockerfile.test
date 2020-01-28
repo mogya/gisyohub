@@ -1,7 +1,5 @@
 ARG RUBY_VERSION
 FROM ruby:${RUBY_VERSION}
-ARG USER_ID=1000
-ARG GROUP_ID=1000
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -17,10 +15,6 @@ RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-RUN groupadd  --gid ${GROUP_ID} rails && \ 
-    useradd -m --home /rails/ --gid ${GROUP_ID} --uid ${USER_ID} rails && \
-    chown -R ${USER_ID}:${GROUP_ID} /rails
-USER ${USER_ID}
 ENV HOME /rails
 RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
 ENV GEM_HOME /usr/local/bundle
