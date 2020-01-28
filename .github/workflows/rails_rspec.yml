@@ -35,6 +35,10 @@ jobs:
       run: docker-compose up -d db
     - name: start docker rails container
       run: docker-compose up -d rails
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '30s'
     - name: Check running containers
       run: docker ps
     - name: Run setup
