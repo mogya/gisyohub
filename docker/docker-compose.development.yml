@@ -63,6 +63,8 @@ services:
       - DB_PASSWORD
       - TWITTER_KEY
       - TWITTER_SECRET
+      - TWITTER_ACCESS_TOKEN
+      - TWITTER_ACCESS_SECRET
     user: ${USER_ID}:${GROUP_ID}
   front:
     build:

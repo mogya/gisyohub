@@ -88,3 +88,4 @@ yarn-debug.log*
 /db/postgres
 rails/vendor/gems/
 rails/.gem/
+rails/.local/

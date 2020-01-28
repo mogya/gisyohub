@@ -32,4 +32,6 @@ services:
       - DB_PASSWORD
       - TWITTER_KEY
       - TWITTER_SECRET
+      - TWITTER_ACCESS_TOKEN
+      - TWITTER_ACCESS_SECRET
   # we do not use front container since nginx provides pre-compiled contents from front directory.

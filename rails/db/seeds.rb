@@ -1,9 +1,19 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ id: 1, name: 'Chicago' }, { id: 1, name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+unless admin_user = User.find_by(email: 'mogya+gisyohub@mogya.com')
+  admin_user = User.create(
+    provider: 'twitter',
+    uid: '1194412802389110784',
+    user_name: 'gisyohub 技術同人誌のための情報サイト',
+    image_url: 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
+    email: 'mogya+gisyohub@mogya.com',
+    access_token: ENV['TWITTER_ACCESS_TOKEN'],
+    access_secret: ENV['TWITTER_ACCESS_SECRET']
+  )
+end
+
+unless Worker.find_by(user: admin_user)
+  Worker.create(
+    user: admin_user
+  )
+end
