@@ -1,19 +1,14 @@
 # frozen_string_literal: true
 
-unless admin_user = User.find_by(email: 'mogya+gisyohub@mogya.com')
-  admin_user = User.create(
-    provider: 'twitter',
-    uid: '1194412802389110784',
-    user_name: 'gisyohub 技術同人誌のための情報サイト',
-    image_url: 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
-    email: 'mogya+gisyohub@mogya.com',
-    access_token: ENV['TWITTER_ACCESS_TOKEN'],
-    access_secret: ENV['TWITTER_ACCESS_SECRET']
-  )
-end
+admin_user =
+  User.find_or_create_by!(email: 'mogya+gisyohub@mogya.com') do |record|
+    record.provider = 'twitter'
+    record.uid = '1194412802389110784'
+    record.user_name = 'gisyohub 技術同人誌のための情報サイト'
+    record.image_url = 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'
+    record.email = 'mogya+gisyohub@mogya.com'
+    record.access_token = ENV['TWITTER_ACCESS_TOKEN']
+    record.access_secret = ENV['TWITTER_ACCESS_SECRET']
+  end
 
-unless Worker.find_by(user: admin_user)
-  Worker.create(
-    user: admin_user
-  )
-end
+Worker.first_or_create!(user: admin_user)
