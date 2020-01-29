@@ -4,6 +4,11 @@
 class Tweet < ApplicationRecord
   belongs_to :twitter_user,
              primary_key: 'twitter_user_id'
+  has_many :assignment_logs
+
+  def assigned?
+    assignment_logs.present?
+  end
 
   # store tweet from twitter api response
   def self.store(tweet_object)
