@@ -10,5 +10,16 @@ admin_user =
     record.access_token = ENV['TWITTER_ACCESS_TOKEN']
     record.access_secret = ENV['TWITTER_ACCESS_SECRET']
   end
+Worker.find_or_create_by!(user: admin_user)
 
-Worker.first_or_create!(user: admin_user)
+bot_user =
+  User.find_or_create_by!(email: 'mogya+gisyohub_bot@mogya.com') do |record|
+    record.provider = ''
+    record.uid = '0'
+    record.user_name = 'gisyohub bot'
+    record.image_url = ''
+    record.email = 'mogya+gisyohub_bot@mogya.com'
+    record.access_token = ''
+    record.access_secret = ''
+  end
+Worker.find_or_create_by!(user: bot_user)
