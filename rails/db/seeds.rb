@@ -19,7 +19,7 @@ bot_user =
     record.user_name = 'gisyohub bot'
     record.image_url = ''
     record.email = 'mogya+gisyohub_bot@mogya.com'
-    record.access_token = ''
-    record.access_secret = ''
+    record.access_token = 'xxxx'
+    record.access_secret = 'xxxx'
   end
 Worker.find_or_create_by!(user: bot_user)

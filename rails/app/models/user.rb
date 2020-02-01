@@ -2,6 +2,10 @@
 
 # User model for author,reader(both use this class at this time.)
 class User < ApplicationRecord
+  has_one :author
+  has_one :worker
+  has_one :administrator
+
   # create or get user from omniauth twitter login response.
   def self.find_or_create_from_auth(auth)
     info = auth[:info]
@@ -15,5 +19,13 @@ class User < ApplicationRecord
       user.access_secret = credentials[:secret]
       user.raw_auth = auth.to_json
     end
+  end
+
+  def privileges
+    ret = [:user]
+    ret << :author if author.present?
+    ret << :administrator if administrator.present?
+    ret << :worker if worker.present?
+    ret
   end
 end

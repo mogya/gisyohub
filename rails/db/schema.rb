@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_063451) do
+ActiveRecord::Schema.define(version: 2020_02_01_055500) do
+
+  create_table "administrators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_administrators_on_user_id"
+  end
 
   create_table "assignment_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "author_id"
@@ -30,10 +37,12 @@ ActiveRecord::Schema.define(version: 2020_01_28_063451) do
   end
 
   create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "twitter_user_id"
+    t.bigint "user_id", null: false
+    t.bigint "twitter_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["twitter_user_id"], name: "index_authors_on_twitter_user_id"
+    t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
   create_table "book_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -137,23 +146,28 @@ ActiveRecord::Schema.define(version: 2020_01_28_063451) do
   end
 
   create_table "workers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
+    t.bigint "twitter_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["twitter_user_id"], name: "index_workers_on_twitter_user_id"
     t.index ["user_id"], name: "index_workers_on_user_id"
   end
 
+  add_foreign_key "administrators", "users"
   add_foreign_key "assignment_logs", "authors"
   add_foreign_key "assignment_logs", "books"
   add_foreign_key "assignment_logs", "events"
   add_foreign_key "assignment_logs", "tweets"
   add_foreign_key "assignment_logs", "workers"
   add_foreign_key "authors", "twitter_users"
+  add_foreign_key "authors", "users"
   add_foreign_key "book_authors", "authors"
   add_foreign_key "book_authors", "books"
   add_foreign_key "event_authors", "authors"
   add_foreign_key "event_authors", "events"
   add_foreign_key "event_books", "books"
   add_foreign_key "event_books", "events"
+  add_foreign_key "workers", "twitter_users"
   add_foreign_key "workers", "users"
 end

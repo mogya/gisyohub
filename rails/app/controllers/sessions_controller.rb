@@ -6,7 +6,16 @@ class SessionsController < ApplicationController
   def index
     @user = User.find_by(id: session[:user_id])
     if @user
-      render json: @user, status: :ok
+      render json: {
+        id: @user.id,
+        user_name: @user.user_name,
+        image_url: @user.image_url,
+        email: @user.email,
+        created_at: @user.created_at,
+        updated_at: @user.updated_at,
+        privileges: @user.privileges
+      }
+      @user
     else
       render json: { message: 'unauthorized' }, status: :unauthorized
     end

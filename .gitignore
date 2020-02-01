@@ -89,3 +89,4 @@ yarn-debug.log*
 rails/vendor/gems/
 rails/.gem/
 rails/.local/
+rails/.bash_history
