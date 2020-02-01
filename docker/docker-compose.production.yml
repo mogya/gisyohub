@@ -18,6 +18,8 @@ services:
     build:
       context: ../rails
       dockerfile: docker/Dockerfile.production
+      args:
+        - RUBY_VERSION
     working_dir: /rails
     network_mode: "host"
     ports:
