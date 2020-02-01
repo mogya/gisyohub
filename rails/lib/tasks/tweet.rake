@@ -5,7 +5,10 @@ require 'twitter_client_factory'
 namespace :twitter do
   desc 'call twitter api and store tweets'
   task scrape: :environment do
-    TwitterScrapeJobs::SearchGijyutsushoten.perform_now
+    TwitterScrapeJobs::Search.new('#技術書典').perform_now
+    TwitterScrapeJobs::Search.new('#技術書典8').perform_now
+    TwitterScrapeJobs::Search.new('#技術書典7').perform_now
+    TwitterScrapeJobs::Search.new('#技書博').perform_now
   end
 
   desc 'store favorited tweets'
