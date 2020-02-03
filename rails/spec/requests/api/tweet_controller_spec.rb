@@ -23,7 +23,7 @@ describe 'API::tweets', type: :request do
         expect(respond_tweet['user']['screen_name']).to eq(
           tweet.twitter_user.screen_name
         )
-        expect(respond_tweet).not_to have_key('row')
+        expect(respond_tweet).not_to have_key('raw')
       end
     end
   end

@@ -15,6 +15,6 @@ class TwitterUser < ApplicationRecord
     self.twitter_user_id = attrs.id
     keys = %i[name screen_name location description url profile_image_url]
     keys.each { |key| self[key] = attrs.send(key) }
-    self.row = attrs.to_json
+    self.raw = attrs.to_json
   end
 end

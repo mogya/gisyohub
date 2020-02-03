@@ -21,7 +21,7 @@ module Twitter
       # end
     end
     module Utils
-      # check row response
+      # check raw response
       # def perform_request_with_object(request_method, path, options, klass)
       #   response = perform_request(request_method, path, options)
       #   byebug

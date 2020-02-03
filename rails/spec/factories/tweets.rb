@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :tweet do
     tweet_id { 1 }
     text { 'MyString' }
-    row { 'MyText' }
+    raw { '{}' }
     tweeted_at { Time.zone.local(2019, 1, 1) }
     twitter_user
   end

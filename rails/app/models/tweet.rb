@@ -30,6 +30,6 @@ class Tweet < ApplicationRecord
     keys = %i[text]
     keys.each { |key| self[key] = attrs.send(key) }
 
-    self.row = attrs.to_json
+    self.raw = attrs.to_json
   end
 end
