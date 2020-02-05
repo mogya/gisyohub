@@ -14,7 +14,7 @@ describe 'API::tweets', type: :request do
     context 'when tweet is in db.' do
       let(:tweet) { create(:tweet) }
       it 'returns the tweet' do
-        get "/api/tweets/#{tweet.id}"
+        get "/api/tweets/#{tweet.tweet_id}"
         expect(response).to have_http_status(:ok)
 
         respond_tweet = JSON.parse(response.body)

@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   namespace :api do
     get 'tweets/index'
-    get 'tweets/:id', to: 'tweets#show'
+    get 'tweets/:tweet_id', to: 'tweets#show'
   end
   root 'sessions#show'
   get '/sessions/new', to: 'sessions#new'

@@ -5,7 +5,7 @@ module Api
     def index; end
 
     def show
-      @tweet = Tweet.find_by(id: params[:id])
+      @tweet = Tweet.find_by(tweet_id: params[:tweet_id])
       if @tweet
         render json: {
           id: @tweet.tweet_id,
