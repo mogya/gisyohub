@@ -109,7 +109,7 @@ export default {
   beforeMount() {
     console.log(this.tweet)
   },
-  middleware: 'worker_only'
+  middleware: 'must_be_worker'
 }
 </script>
 
