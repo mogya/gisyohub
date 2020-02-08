@@ -22,7 +22,7 @@ describe 'sessions', type: :request do
         respond_user = JSON.parse(response.body)
         expect(respond_user['id']).to eq(user.id)
         expect(respond_user['user_name']).to eq(user.user_name)
-        expect(respond_user['privileges']).to match_array(['user'])
+        expect(respond_user['scope']).to match_array(['user'])
         expect(respond_user).not_to have_key('access_token')
         expect(respond_user).not_to have_key('access_secret')
         expect(respond_user).not_to have_key('raw_auth')

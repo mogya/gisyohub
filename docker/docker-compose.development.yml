@@ -80,4 +80,6 @@ services:
       - NUXT_HOST=0.0.0.0
       - NUXT_PORT=$NODE_PORT
       - API_PORT=$WEB_PORT
+      - PORT=$NODE_PORT
+      - HOST=localhost
     user: ${USER_ID}:${GROUP_ID}

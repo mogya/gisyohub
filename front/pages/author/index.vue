@@ -17,7 +17,18 @@
 
 <script>
 export default {
-  middleware: 'auth',
+  middleware ({ app, redirect }) {
+    if (app.$auth){
+      if (app.$auth.hasScope('author')){
+      }else{
+        console.log('user is logged-in but no privillage')
+        return redirect(app.$front_url('/sessions/new'))
+      }
+    }else{
+      console.log('user is not logged-in')
+      return redirect(app.$front_url('/sessions/new'))
+    }
+  },
   methods:{
     async onclickLogout(event){
       const ret = await this.$auth.logout()

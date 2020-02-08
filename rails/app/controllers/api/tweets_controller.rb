@@ -9,8 +9,10 @@ module Api
       if @tweet
         render json: {
           id: @tweet.tweet_id,
+          id_str: @tweet.tweet_id.to_s,
           user: {
             id: @tweet.twitter_user.twitter_user_id,
+            id_str: @tweet.twitter_user.twitter_user_id.to_s,
             name: @tweet.twitter_user.name,
             screen_name: @tweet.twitter_user.screen_name,
             description: @tweet.twitter_user.description,
