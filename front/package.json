@@ -9,19 +9,22 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "jest"
+    "test": "jest",
+    "debug": "node --inspect-brk=0.0.0.0:9229 node_modules/.bin/nuxt"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.8.4",
-    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/markdownit": "^1.2.7",
+    "@nuxtjs/proxy": "^1.3.3",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "bootstrap": "^4.1.3",
-    "bootstrap-vue": "^2.0.0",
+    "@nuxtjs/tailwindcss": "^1.3.2",
     "cookie-universal-nuxt": "^2.0.18",
+    "install": "^0.13.0",
     "lodash": "^4.17.15",
     "markdown-it-emoji": "^1.4.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-tweet-embed": "^2.4.0"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",
@@ -36,5 +39,5 @@
     "last 2 version",
     "android >= 4.4",
     "IE 11"
-  ]  
+  ]
 }

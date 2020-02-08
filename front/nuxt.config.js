@@ -29,26 +29,30 @@ export default {
   */
   plugins: [
     '~/plugins/csrf-handler',
+    '~/plugins/url-resolver',
     '~/plugins/localstorage'
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    '@nuxtjs/tailwindcss'
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org
-    'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@nuxtjs/proxy',
     '@nuxtjs/pwa',
     ['cookie-universal-nuxt', { parseJSON: false }],
     '@nuxtjs/markdownit'
   ],
+  configureWebpack: {
+    devtool: 'source-map'
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
