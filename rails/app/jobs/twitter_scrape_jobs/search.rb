@@ -23,11 +23,11 @@ module TwitterScrapeJobs
     private
 
     def scrape(keyword)
-      params = {}
+      params = { tweet_mode: 'extended' }
       params[:last_since_id] = @last_log.variables[:since_id] if @last_log
       @client.search(keyword, params)
     end
-    
+
     def log_title
       "#{self.class.name}(#{@keyword})"
     end

@@ -20,9 +20,13 @@ namespace :twitter do
   task refresh: :environment do
     @client = TwitterClientFactory.new_client
     Tweet.all.each do |tweet|
-      status = @client.status(tweet.tweet_id)
+      status = @client.status(tweet.tweet_id, tweet_mode: 'extended')
       Tweet.store(status)
-      sleep(1) # Tweet.store rate limit= 900/15min = 60/min = 1/sec.
+    rescue Twitter::Error::TooManyRequests
+      sleep(15 * 60) # rate limit 900/15min.
+    rescue Twitter::Error => e
+      Logger.debug("error while getting tweet id:#{tweet.tweet_id}")
+      Logger.error(e)
     end
   end
 

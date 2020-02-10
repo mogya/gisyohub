@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_073738) do
+ActiveRecord::Schema.define(version: 2020_02_10_162638) do
 
   create_table "administrators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -103,12 +103,11 @@ ActiveRecord::Schema.define(version: 2020_02_03_073738) do
   create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "tweet_id", null: false
     t.bigint "twitter_user_id", null: false
-    t.string "text", null: false
+    t.text "text", null: false
     t.text "raw", null: false
     t.datetime "tweeted_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["text"], name: "index_tweets_on_text"
     t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
     t.index ["twitter_user_id"], name: "index_tweets_on_twitter_user_id"
     t.index ["updated_at"], name: "index_tweets_on_updated_at"

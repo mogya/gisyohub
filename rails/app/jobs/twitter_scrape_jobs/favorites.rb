@@ -11,7 +11,7 @@ module TwitterScrapeJobs
     end
 
     def scrape
-      params = {}
+      params = {tweet_mode: "extended"}
       params[:last_since_id] = @last_log.variables[:since_id] if @last_log
       @client.favorites(params)
     end
