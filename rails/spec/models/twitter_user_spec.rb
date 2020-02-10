@@ -24,5 +24,24 @@ RSpec.describe TwitterUser, type: :model do
         expect { TwitterUser.store(user_object) }.to raise_error(ArgumentError)
       end
     end
+    context 'update' do
+      let(:user_object) do
+        obj = build(:twitter_tweet_response).user
+        obj.id = 1
+        obj.name = 'updated user.'
+        obj
+      end
+      let!(:existing_tweet) do
+        create(:twitter_user, twitter_user_id: 1, name: 'existing user.')
+      end
+      it 'override existing record' do
+        expect { TwitterUser.store(user_object) }.to(
+          change(TwitterUser, :count).by(0)
+        )
+        user = TwitterUser.find_by(twitter_user_id: 1)
+        expect(user.name).to eq('updated user.')
+      end
+
+    end
   end
 end

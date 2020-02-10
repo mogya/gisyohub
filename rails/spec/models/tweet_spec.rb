@@ -28,5 +28,23 @@ RSpec.describe Tweet, type: :model do
         expect { Tweet.store(tweet_object) }.to raise_error(ArgumentError)
       end
     end
+    context 'update' do
+      let!(:existing_tweet) do
+        create(:tweet, tweet_id: 1, text: 'existing tweet.')
+      end
+      let(:tweet_object) do
+        build(:twitter_tweet_response) do |obj|
+          obj.id = 1
+          obj.text = 'new text'
+        end
+      end
+      it 'override existing record' do
+        expect { Tweet.store(tweet_object) }.to(
+          change(Tweet, :count).by(0)
+        )
+        tweet = Tweet.find_by(tweet_id: 1)
+        expect(tweet.text).to eq('new text')
+      end
+    end
   end
 end

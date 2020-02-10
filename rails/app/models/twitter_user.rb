@@ -6,9 +6,11 @@ class TwitterUser < ApplicationRecord
     unless user_object.screen_name
       raise ArgumentError, 'content should be a Twitter::User of twitter gem.'
     end
-    return if exists?(twitter_user_id: user_object.id)
 
-    create! { |record| record.attrs = user_object }
+    record = find_or_initialize_by(twitter_user_id: user_object.id)
+    record.attrs = user_object
+    record.save!
+    record
   end
 
   def attrs=(attrs)

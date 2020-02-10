@@ -16,6 +16,16 @@ namespace :twitter do
     TwitterScrapeJobs::Favorites.perform_now
   end
 
+  desc 're-download all tweets'
+  task refresh: :environment do
+    @client = TwitterClientFactory.new_client
+    Tweet.all.each do |tweet|
+      status = @client.status(tweet.tweet_id)
+      Tweet.store(status)
+      sleep(1) # Tweet.store rate limit= 900/15min = 60/min = 1/sec.
+    end
+  end
+
   if Rails.env.development?
     desc '[DANGER] delete all tweets'
     task delete_all_tweet_this_is_danger_method: :environment do

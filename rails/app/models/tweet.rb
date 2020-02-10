@@ -13,14 +13,16 @@ class Tweet < ApplicationRecord
   # store tweet from twitter api response
   def self.store(tweet_object)
     unless tweet_object.text && tweet_object.user
-      raise ArgumentError, 'content should be a Twitter::Tweet of twitter gem.'
+      raise ArgumentError, 'tweet_object should be a Twitter::Tweet of twitter gem.'
     end
-    return if exists?(tweet_id: tweet_object.id)
 
-    TwitterUser.store(tweet_object.user)
-    create! do |record|
+    record = find_or_initialize_by(tweet_id: tweet_object.id)
+    transaction do
+      TwitterUser.store(tweet_object.user)
       record.attrs = tweet_object
+      record.save!
     end
+    record
   end
 
   def attrs=(attrs)
