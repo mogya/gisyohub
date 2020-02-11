@@ -25,8 +25,8 @@ namespace :twitter do
     rescue Twitter::Error::TooManyRequests
       sleep(15 * 60) # rate limit 900/15min.
     rescue Twitter::Error => e
-      Logger.debug("error while getting tweet id:#{tweet.tweet_id}")
-      Logger.error(e)
+      Rails.logger.info("error while getting tweet id:#{tweet.tweet_id}")
+      Rails.logger.error(e)
     end
   end
 
