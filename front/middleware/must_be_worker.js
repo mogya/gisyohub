@@ -1,6 +1,6 @@
 export default function ({ app, redirect }) {
   if (app.$auth) {
-    if (app.$auth.hasScope('worker')) {
+    if (app.$auth.hasScope('worker') || app.$auth.hasScope('administrator')) {
     } else {
       console.log('user is logged-in but no privillage')
       return redirect(app.$front_url('/sessions/new'))
