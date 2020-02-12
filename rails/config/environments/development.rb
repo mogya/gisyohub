@@ -57,3 +57,4 @@ Rails.application.configure do
 end
 
 BetterErrors::Middleware.allow_ip! '0.0.0.0/0' if Rails.env.development?
+Rails.logger = Logger.new(STDOUT)
