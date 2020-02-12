@@ -51,3 +51,4 @@ services:
       - API_PORT=$WEB_PORT
       - PORT=$NODE_PORT
       - HOST=localhost
+
