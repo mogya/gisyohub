@@ -36,4 +36,18 @@ services:
       - TWITTER_SECRET
       - TWITTER_ACCESS_TOKEN
       - TWITTER_ACCESS_SECRET
-  # we do not use front container since nginx provides pre-compiled contents from front directory.
+  # we use front container to BUILD contents. this container has no server capability.
+  front:
+    build:
+      context: ../front
+      dockerfile: docker/Dockerfile
+    working_dir: /front
+    volumes:
+      - ../front:/front
+    environment:
+      - NODE_ENV=production
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=$NODE_PORT
+      - API_PORT=$WEB_PORT
+      - PORT=$NODE_PORT
+      - HOST=localhost
