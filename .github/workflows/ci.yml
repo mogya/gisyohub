@@ -3,9 +3,7 @@ name: Docker Image CI
 on: [push]
 
 jobs:
-
-  build:
-
+  rspec:
     runs-on: ubuntu-latest
     env:
       RUBY_VERSION: 2.6.5
@@ -26,7 +24,6 @@ jobs:
       TWITTER_ACCESS_SECRET: "DUMMY_TWITTER_ACCESS_SECRET"
       USER_ID: 1000
       GROUP_ID: 1000
-
     steps:
     - uses: actions/checkout@v1
     - name: Build the docker-compose stack
@@ -57,3 +54,17 @@ jobs:
         url: ${{ secrets.SLACK_WEBHOOK_GISYOHUB }}
         commit: true
         token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    branches:
+      - master
+    steps:
+    - name: executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: /var/www/gisyohub/deploy.sh
