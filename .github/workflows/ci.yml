@@ -57,8 +57,10 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
-    branches:
-      - master
+    on:
+      push:
+        branches:
+          - master
     steps:
     - name: executing remote ssh commands
       uses: appleboy/ssh-action@master
