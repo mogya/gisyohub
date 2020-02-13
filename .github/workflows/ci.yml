@@ -1,9 +1,6 @@
 name: Docker Image CI
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   rspec:
@@ -59,6 +56,8 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}
   deploy:
     name: deploy
+    if: github.event_name == 'push' && github.ref == 'master'
+    needs: rspec
     runs-on: ubuntu-latest
     steps:
     - name: executing remote ssh commands
