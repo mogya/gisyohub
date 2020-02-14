@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
   ** Headers of the page
   */
@@ -30,7 +30,7 @@ export default {
   plugins: [
     '~/plugins/csrf-handler',
     '~/plugins/url-resolver',
-    '~/plugins/localstorage'
+    { src: '~/plugins/localstorage', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -58,7 +58,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    port: 1080,
+    host: process.browser ? process.env.API_HOST_FROM_CLIENT : process.env.API_HOST_FROM_SERVER,
+    port: process.browser ? process.env.API_PORT_FROM_CLIENT : process.env.API_PORT_FROM_SERVER,
   },
   auth: {
     redirect: {
