@@ -5,7 +5,10 @@ describe 'sessions', type: :request do
     context 'not logged-in' do
       it 'returns unauthorized' do
         get '/sessions'
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:ok)
+
+        respond_user = JSON.parse(response.body)
+        expect(respond_user).to eq false
       end
     end
 
