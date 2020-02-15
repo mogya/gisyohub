@@ -8,7 +8,7 @@ describe 'sessions', type: :request do
         expect(response).to have_http_status(:ok)
 
         respond_user = JSON.parse(response.body)
-        expect(respond_user).to eq true
+        expect(respond_user).to eq false
       end
     end
 
