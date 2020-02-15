@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: gisyohub CI/CD
 
 on: [push]
 
@@ -6,45 +6,69 @@ jobs:
   rspec:
     runs-on: ubuntu-latest
     env:
-      RUBY_VERSION: 2.6.5
-      RAILS_PORT: 3000
-      NODE_PORT: 3010
-      WEB_PORT: 1080
-      DB_HOST: db
-      DB_NAME: gisyohub
-      DB_USER: root
-      DB_PASSWORD: ""
-      PROJECT_NAME: gisyohub
-      SECRET_KEY_BASE: xxxxx
-      COMPOSE_PROJECT_NAME: gisyohub_ci
-      COMPOSE_FILE: docker/docker-compose.test.yml
       TWITTER_KEY: "DUMMY_TWITTER_KEY"
       TWITTER_SECRET: "DUMMY_TWITTER_SECRET"
       TWITTER_ACCESS_TOKEN: "DUMMY_TWITTER_ACCESS_TOKEN"
       TWITTER_ACCESS_SECRET: "DUMMY_TWITTER_ACCESS_SECRET"
-      USER_ID: 1000
-      GROUP_ID: 1000
+      DB_HOST: localhost
+      DB_PASSWORD: root
+      RAILS_ENV: test
+    services:
+      db:
+        image: mysql:5.7.27
+        ports:
+          - 33060:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          BIND-ADDRESS: 0.0.0.0
     steps:
-    - uses: actions/checkout@v1
-    - name: Build the docker-compose stack
-      run: docker-compose build
-    - name: start docker db container
-      run: docker-compose up -d db
-    - name: start docker rails container
-      run: docker-compose up -d rails
-    - name: Sleep for 30 seconds
-      uses: jakejarvis/wait-action@master
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
       with:
-        time: '30s'
-    - name: Check running containers
-      run: docker ps
-    - name: Run setup
-      run: docker exec gisyohub_ci_rails_1 /rails/bin/setup
-    - name: Run test suite
-      run: docker exec gisyohub_ci_rails_1 /rails/bin/rails spec
-    - name: Slack Notification
-      uses: homoluctus/slatify@master
+        ruby-version: 2.6.x
+    - name: apt-get
+      run: |
+        sudo apt-get update
+        sudo apt-get install libmysqlclient-dev
+    - name: Cache gems
+      uses: actions/cache@preview
+      with:
+        path: rails/vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+    - name: bundle install
+      run: |
+        cd rails
+        gem install bundler
+        bundle config set path '/home/runner/work/gisyohub/gisyohub/rails/vendor/bundle'
+        bundle install --jobs 4 --retry 3
+    - name: migration
+      run: |
+        cd rails
+        bundle exec rake db:create
+        bundle exec rake db:schema:load
+    - name: run rspec
+      run: |
+        cd rails
+        bundle exec rspec
+    - name: debug
       if: always()
+      run: |
+        echo 'pwd'
+        pwd
+        cd rails
+        bundle config
+        echo '/home/runner/work/gisyohub/gisyohub/rails/'
+        ls /home/runner/work/gisyohub/gisyohub/rails/
+        echo '/home/runner/work/gisyohub/gisyohub/rails/vendor'
+        ls /home/runner/work/gisyohub/gisyohub/rails/vendor
+        echo '/home/runner/work/gisyohub/gisyohub/rails/vendor/bundle'
+        ls /home/runner/work/gisyohub/gisyohub/rails/vendor/bundle
+    - name: Slack Notification
+      if: failure()
+      uses: homoluctus/slatify@master
       with:
         type: ${{ job.status }}
         job_name: '*rspec *'
