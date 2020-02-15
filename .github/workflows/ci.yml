@@ -56,7 +56,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}
   deploy:
     name: deploy
-    if: github.event_name == 'push' && github.ref == 'master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: rspec
     runs-on: ubuntu-latest
     steps:
