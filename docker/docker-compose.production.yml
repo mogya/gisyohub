@@ -36,7 +36,6 @@ services:
       - TWITTER_SECRET
       - TWITTER_ACCESS_TOKEN
       - TWITTER_ACCESS_SECRET
-  # we use front container to BUILD contents. this container has no server capability.
   front:
     build:
       context: ../front
@@ -46,9 +45,9 @@ services:
       - ../front:/front
     environment:
       - NODE_ENV=production
-      - NUXT_HOST=0.0.0.0
-      - NUXT_PORT=$NODE_PORT
-      - API_PORT=$WEB_PORT
+      - API_HOST_FROM_SERVER=rails
+      - API_PORT_FROM_SERVER=$RAILS_PORT
+      - API_HOST_FROM_CLIENT=rails
+      - API_PORT_FROM_CLIENT=$RAILS_PORT
       - PORT=$NODE_PORT
-      - HOST=localhost
 

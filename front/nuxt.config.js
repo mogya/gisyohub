@@ -1,6 +1,10 @@
 const webpack = require('webpack')
 export default {
   mode: 'universal',
+  server: {
+    port: process.env.port,
+    host: '0.0.0.0'
+  },
   /*
   ** Headers of the page
   */
@@ -102,14 +106,6 @@ export default {
       // if (!ctx.isDev) {
       //   config.output.publicPath = '_nuxt/'
       // }
-    },
-    filenames: {
-      app: () => '[name].js',
-      chunk: () => '[name].js',
-      css: () => '[name].js',
-      img: () => '[path][name].[ext]',
-      font: () => '[path][name].[ext]',
-      video: () => '[path][name].[ext]'
-    },
+    }
   }
 }

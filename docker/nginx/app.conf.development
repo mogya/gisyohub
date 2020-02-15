@@ -5,7 +5,7 @@ upstream front_server {
   server front:${NODE_PORT};
 }
 server {
-  listen 1080;
+  listen ${PORT};
 
   location /api/ {
       proxy_set_header X-Real-IP  $remote_addr;

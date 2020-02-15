@@ -82,5 +82,4 @@ services:
       - API_HOST_FROM_CLIENT=rails
       - API_PORT_FROM_CLIENT=$RAILS_PORT
       - PORT=$NODE_PORT
-      - HOST=localhost
     user: ${USER_ID}:${GROUP_ID}
