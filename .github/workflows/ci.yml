@@ -53,19 +53,6 @@ jobs:
       run: |
         cd rails
         bundle exec rspec
-    - name: debug
-      if: always()
-      run: |
-        echo 'pwd'
-        pwd
-        cd rails
-        bundle config
-        echo '/home/runner/work/gisyohub/gisyohub/rails/'
-        ls /home/runner/work/gisyohub/gisyohub/rails/
-        echo '/home/runner/work/gisyohub/gisyohub/rails/vendor'
-        ls /home/runner/work/gisyohub/gisyohub/rails/vendor
-        echo '/home/runner/work/gisyohub/gisyohub/rails/vendor/bundle'
-        ls /home/runner/work/gisyohub/gisyohub/rails/vendor/bundle
     - name: Slack Notification
       if: failure()
       uses: homoluctus/slatify@master
