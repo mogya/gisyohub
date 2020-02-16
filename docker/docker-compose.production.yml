@@ -7,6 +7,7 @@ services:
     depends_on: 
       - rails
       - front
+    network_mode: "host"
     ports:
      - "80:${WEB_PORT}"
     environment:
@@ -20,9 +21,10 @@ services:
       dockerfile: docker/Dockerfile.production
       args:
         - RUBY_VERSION
-    working_dir: /rails
+    network_mode: "host"
     ports:
       - $RAILS_PORT:$RAILS_PORT
+    working_dir: /rails
     environment:
       - PORT=$RAILS_PORT
       - RAILS_ENV=production
@@ -39,9 +41,10 @@ services:
     build:
       context: ../front
       dockerfile: docker/Dockerfile
-    working_dir: /front
+    network_mode: "host"
     ports:
      - $NODE_PORT:$NODE_PORT
+    working_dir: /front
     volumes:
       - ../front:/front
     environment:
