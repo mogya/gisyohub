@@ -6,7 +6,7 @@ services:
       dockerfile: docker/nginx/Dockerfile
     depends_on: 
       - rails
-    network_mode: "host"
+      - front
     ports:
      - "80:${WEB_PORT}"
     environment:
@@ -21,7 +21,6 @@ services:
       args:
         - RUBY_VERSION
     working_dir: /rails
-    network_mode: "host"
     ports:
       - $RAILS_PORT:$RAILS_PORT
     environment:
@@ -41,6 +40,8 @@ services:
       context: ../front
       dockerfile: docker/Dockerfile
     working_dir: /front
+    ports:
+     - $NODE_PORT:$NODE_PORT
     volumes:
       - ../front:/front
     environment:

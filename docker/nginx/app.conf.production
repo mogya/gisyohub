@@ -1,5 +1,8 @@
 upstream rails_server {
-  server localhost:${RAILS_PORT};
+  server rails:${RAILS_PORT};
+}
+upstream front_server {
+  server front:${NODE_PORT};
 }
 server {
   listen ${PORT};
