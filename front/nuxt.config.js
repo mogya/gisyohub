@@ -1,10 +1,6 @@
 const webpack = require('webpack')
 export default {
-  mode: 'universal',
-  server: {
-    port: process.env.port,
-    host: '0.0.0.0'
-  },
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -62,8 +58,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    host: process.browser ? process.env.API_HOST_FROM_CLIENT : process.env.API_HOST_FROM_SERVER,
-    port: process.browser ? process.env.API_PORT_FROM_CLIENT : process.env.API_PORT_FROM_SERVER,
+    host: process.env.API_HOST,
+    port: process.env.API_PORT,
   },
   auth: {
     redirect: {

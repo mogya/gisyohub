@@ -77,9 +77,7 @@ services:
       - data
     environment:
       - NODE_ENV=development
-      - API_HOST_FROM_SERVER=rails
-      - API_PORT_FROM_SERVER=$RAILS_PORT
-      - API_HOST_FROM_CLIENT=rails
-      - API_PORT_FROM_CLIENT=$RAILS_PORT
+      - API_HOST=rails
+      - API_PORT=$RAILS_PORT
       - PORT=$NODE_PORT
     user: ${USER_ID}:${GROUP_ID}
