@@ -50,5 +50,5 @@ services:
     environment:
       - NODE_ENV=production
       - API_HOST=gisyohub.com
-      - API_PORT=$RAILS_PORT
+      - API_PORT=$WEB_PORT
       - PORT=$NODE_PORT
