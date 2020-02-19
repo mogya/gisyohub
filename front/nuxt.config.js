@@ -62,8 +62,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    host: process.browser ? process.env.API_HOST_FROM_CLIENT : process.env.API_HOST_FROM_SERVER,
-    port: process.browser ? process.env.API_PORT_FROM_CLIENT : process.env.API_PORT_FROM_SERVER,
+    // host: process.browser ? process.env.API_HOST_FROM_CLIENT : process.env.API_HOST_FROM_SERVER,
+    // port: process.browser ? process.env.API_PORT_FROM_CLIENT : process.env.API_PORT_FROM_SERVER,
+    baseURL: `http://${process.env.API_HOST_FROM_SERVER}:${process.env.API_PORT_FROM_SERVER}`,
+    browserBaseURL: `http://${process.env.API_HOST_FROM_CLIENT}:${process.env.API_PORT_FROM_CLIENT}`,
+    proxyHeaders: true
   },
   auth: {
     redirect: {

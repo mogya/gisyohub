@@ -49,9 +49,9 @@ services:
       - ../front:/front
     environment:
       - NODE_ENV=production
-      - API_HOST_FROM_SERVER=rails
+      - API_HOST_FROM_SERVER=localhost
       - API_PORT_FROM_SERVER=$RAILS_PORT
-      - API_HOST_FROM_CLIENT=rails
-      - API_PORT_FROM_CLIENT=$RAILS_PORT
+      - API_HOST_FROM_CLIENT=gisyohub.com
+      - API_PORT_FROM_CLIENT=80
       - PORT=$NODE_PORT
 

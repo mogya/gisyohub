@@ -6,5 +6,6 @@ then
   /bin/bash && tail -f /dev/null
 else
   yarn build
-  yarn start && tail -f /dev/null
+  yarn start 
+  /bin/bash && tail -f /dev/null
 fi
