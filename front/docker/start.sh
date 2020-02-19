@@ -6,5 +6,5 @@ then
   /bin/bash && tail -f /dev/null
 else
   rm -f dist/buildend 
-  yarn build && touch dist/buildend
+  yarn generate && touch dist/buildend
 fi
