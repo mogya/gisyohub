@@ -37,6 +37,7 @@ services:
       - TWITTER_SECRET
       - TWITTER_ACCESS_TOKEN
       - TWITTER_ACCESS_SECRET
+  # front container just to BUILD contents. this container has no server capability.
   front:
     build:
       context: ../front
@@ -49,9 +50,6 @@ services:
       - ../front:/front
     environment:
       - NODE_ENV=production
-      - API_HOST_FROM_SERVER=localhost
-      - API_PORT_FROM_SERVER=$RAILS_PORT
-      - API_HOST_FROM_CLIENT=gisyohub.com
-      - API_PORT_FROM_CLIENT=80
+      - API_HOST=localhost
+      - API_PORT=$RAILS_PORT
       - PORT=$NODE_PORT
-

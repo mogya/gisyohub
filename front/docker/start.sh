@@ -5,7 +5,6 @@ then
   yarn dev &
   /bin/bash && tail -f /dev/null
 else
-  yarn build
-  yarn start 
-  /bin/bash && tail -f /dev/null
+  rm -f dist/buildend 
+  yarn build && touch dist/buildend
 fi
