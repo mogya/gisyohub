@@ -18,5 +18,5 @@ if [ ! -f front/dist/buildend ]; then
   exit 1	
 fi	
 
-docker-compose build rails nginx
-docker-compose up -d rails nginx
+docker-compose build
+docker-compose up -d

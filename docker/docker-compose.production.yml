@@ -6,7 +6,6 @@ services:
       dockerfile: docker/nginx/Dockerfile
     depends_on: 
       - rails
-      - front
     network_mode: "host"
     ports:
      - "80:${WEB_PORT}"
@@ -50,6 +49,6 @@ services:
       - ../front:/front
     environment:
       - NODE_ENV=production
-      - API_HOST=localhost
+      - API_HOST=gisyohub.com
       - API_PORT=$RAILS_PORT
       - PORT=$NODE_PORT
