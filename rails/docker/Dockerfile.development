@@ -23,7 +23,7 @@ RUN groupadd  --gid ${GROUP_ID} rails && \
 USER ${USER_ID}
 ENV HOME /rails
 RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
-ENV GEM_HOME /usr/local/bundle
+ENV GEM_HOME /rails/vendor/bundle
 ENV PATH $GEM_HOME/bin:$PATH
 # hadolint ignore=DL3028
 RUN gem install bundler \
@@ -38,3 +38,5 @@ RUN bundle install -j4 && \
 
 # main process.
 CMD ["sh", "/rails/docker/start.sh"]
+# CMD ["tail", "-f", "/dev/null"]
+
