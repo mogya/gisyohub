@@ -18,5 +18,8 @@ if [ ! -f front/dist/buildend ]; then
   exit 1	
 fi	
 
+# need to reload in case of ruby upgrade.
+export RUBY_VERSION=`cat rails/.ruby-version`
+
 docker-compose build
 docker-compose up -d
