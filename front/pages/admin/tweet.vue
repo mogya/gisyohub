@@ -88,9 +88,9 @@
 <script>
 import { Tweet } from 'vue-tweet-embed'
 export default {
-  validate ({ params }) {
+  validate ({ query }) {
     // must be number.
-    return /^\d+$/.test(params.id)
+    return /^\d+$/.test(query.id)
   },
   components: {
     Tweet: Tweet
@@ -101,8 +101,8 @@ export default {
   },
   methods: {
   },
-  async asyncData ({ $axios, params }) {
-    const tweet = await $axios.$get(`/api/tweets/${params['id']}`)
+  async asyncData ({ $axios, query }) {
+    const tweet = await $axios.$get(`/api/tweets/${query.id}`)
     console.log(tweet)
     return { tweet: tweet }
   },
@@ -112,7 +112,6 @@ export default {
   middleware: 'must_be_worker'
 }
 </script>
-
 <style>
 .twitter-tweet {margin:auto;}
 .select-style {
