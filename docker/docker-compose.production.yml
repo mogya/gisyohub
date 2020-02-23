@@ -14,6 +14,7 @@ services:
       - NODE_PORT
       - NODE_ENV=production
   rails:
+    image: registry.heroku.com/gisyohub/rails
     build:
       context: ../rails
       dockerfile: docker/Dockerfile.production
