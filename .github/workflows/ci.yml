@@ -16,9 +16,6 @@ jobs:
     services:
       db:
         image: postgres
-        env:
-          POSTGRES_USER=${DB_USER}
-          POSTGRES_PASSWORD=${DB_PASSWORD}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.7
