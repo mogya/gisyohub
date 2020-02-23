@@ -15,12 +15,10 @@ jobs:
       RAILS_ENV: test
     services:
       db:
-        image: mysql:5.7.27
-        ports:
-          - 33060:3306
+        image: postgres
         env:
-          MYSQL_ROOT_PASSWORD: root
-          BIND-ADDRESS: 0.0.0.0
+          - POSTGRES_USER=${DB_USER}
+          - POSTGRES_PASSWORD=${DB_PASSWORD}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.7
