@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   host: db
   username: <%= ENV.fetch("DB_USER") %> { 'postgres' } 
-  password: <%= ENV.fetch("DB_PASSWORD") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %> { '' }
   pool: 5
 
 development:
@@ -16,4 +16,4 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV.fetch("DB_NAME") { 'gishohub_dev' } %>_production
+  database: <%= ENV.fetch("DB_NAME") { 'gishohub' } %>_production
