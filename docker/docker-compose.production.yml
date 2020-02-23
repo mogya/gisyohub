@@ -7,14 +7,13 @@ services:
     depends_on: 
       - rails
     ports:
-     - "80:${PORT}"
+     - "80:${WEB_PORT}"
     environment:
-      - PORT
+      - PORT=$WEB_PORT
       - RAILS_PORT
       - NODE_PORT
       - NODE_ENV=production
   rails:
-    image: registry.heroku.com/gisyohub/rails
     build:
       context: ../rails
       dockerfile: docker/Dockerfile.production
@@ -24,7 +23,6 @@ services:
       - $RAILS_PORT:$RAILS_PORT
     working_dir: /rails
     environment:
-      - PORT
       - RAILS_ENV=production
       - SECRET_KEY_BASE
       - DB_HOST
@@ -49,4 +47,4 @@ services:
       - NODE_ENV=production
       - API_HOST=gisyohub.com
       - API_PORT=$WEB_PORT
-      - PORT
+      - PORT=$NODE_PORT

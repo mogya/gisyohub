@@ -30,4 +30,4 @@ RUN bundle install -j4 && \
     bundle clean
 
 # main process.
-CMD ["sh", "/rails/docker/start.sh"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
