@@ -2,8 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: db
-  username: <%= ENV.fetch("DB_USER") %> { 'postgres' } 
-  password: <%= ENV.fetch("DB_PASSWORD") %> { '' }
+  username: <%= ENV.fetch("DB_USER") { 'postgres' } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { '' } %>
   pool: 5
 
 development:
