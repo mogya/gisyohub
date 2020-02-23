@@ -13,16 +13,14 @@ services:
       - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
     user: ${USER_ID}:${GROUP_ID}
   db:
-    image: mysql:5
-    environment: 
-      MYSQL_DATABASE: $PROJECT_NAME
-      MYSQL_USER: $DB_USER
-      MYSQL_PASSWORD: $DB_PASSWORD
-      MYSQL_ROOT_PASSWORD: $DB_PASSWORD
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      PGDATA: /db/mysql/data
+    image: postgres
+    volumes:
+      - /db/postgres/data:/var/lib/postgresql/data
     volumes_from:
       - data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
   nginx:
     build:
       context: ../

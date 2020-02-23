@@ -12,14 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2020_02_10_162638) do
 
-  create_table "administrators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "administrators", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_administrators_on_user_id"
   end
 
-  create_table "assignment_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "assignment_logs", force: :cascade do |t|
     t.bigint "author_id"
     t.bigint "worker_id", null: false
     t.bigint "tweet_id"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["worker_id"], name: "index_assignment_logs_on_worker_id"
   end
 
-  create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "authors", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "twitter_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
-  create_table "book_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "book_authors", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -54,14 +57,14 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["book_id"], name: "index_book_authors_on_book_id"
   end
 
-  create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "keyword"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "event_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "event_authors", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "event_id", null: false
     t.string "space_name"
@@ -71,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["event_id"], name: "index_event_authors_on_event_id"
   end
 
-  create_table "event_books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "event_books", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -80,14 +83,14 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["event_id"], name: "index_event_books_on_event_id"
   end
 
-  create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "keyword"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "job_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "job_logs", force: :cascade do |t|
     t.string "job_type", null: false
     t.text "variable_json"
     t.datetime "started_at", null: false
@@ -100,7 +103,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["started_at"], name: "index_job_logs_on_started_at"
   end
 
-  create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "tweets", force: :cascade do |t|
     t.bigint "tweet_id", null: false
     t.bigint "twitter_user_id", null: false
     t.text "text", null: false
@@ -113,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["updated_at"], name: "index_tweets_on_updated_at"
   end
 
-  create_table "twitter_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "twitter_users", force: :cascade do |t|
     t.bigint "twitter_user_id", null: false
     t.string "name", null: false
     t.string "screen_name", null: false
@@ -129,7 +132,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["twitter_user_id"], name: "index_twitter_users_on_twitter_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "provider", null: false
     t.string "uid", null: false
     t.string "user_name", null: false
@@ -144,7 +147,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_162638) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
-  create_table "workers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "workers", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "twitter_user_id"
     t.datetime "created_at", precision: 6, null: false
