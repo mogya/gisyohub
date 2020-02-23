@@ -24,6 +24,8 @@ RUN gem install bundler \
   && bundle config --global bin "$GEM_HOME/bin"
 ENV BUNDLE_APP_CONFIG $GEM_HOME
 
+RUN ls -la /rails
+
 RUN bundle install -j4 && \
     bundle clean
 
