@@ -19,16 +19,17 @@ services:
       dockerfile: docker/Dockerfile.production
       args:
         - RUBY_VERSION
+        - RAILS_ENV=production
+        - SECRET_KEY_BASE
+        - DATABASE_URL
     ports:
       - $RAILS_PORT:$RAILS_PORT
     working_dir: /rails
     environment:
       - RAILS_ENV=production
+      - PORT=$RAILS_PORT
       - SECRET_KEY_BASE
-      - DB_HOST
-      - DB_NAME
-      - DB_USER
-      - DB_PASSWORD
+      - DATABASE_URL
       - TWITTER_KEY
       - TWITTER_SECRET
       - TWITTER_ACCESS_TOKEN
