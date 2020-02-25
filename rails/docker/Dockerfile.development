@@ -22,21 +22,27 @@ RUN groupadd  --gid ${GROUP_ID} rails && \
     chown -R ${USER_ID}:${GROUP_ID} /rails
 USER ${USER_ID}
 ENV HOME /rails
+
 RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
 ENV GEM_HOME /rails/vendor/bundle
 ENV PATH $GEM_HOME/bin:$PATH
 # hadolint ignore=DL3028
 RUN gem install bundler \
-  && bundle config --global path "$GEM_HOME" \
-  && bundle config --global bin "$GEM_HOME/bin"
+  && bundle config --local path "$GEM_HOME" \
+  && bundle config --local bin "$GEM_HOME/bin"
 ENV BUNDLE_APP_CONFIG $GEM_HOME
-
 COPY Gemfile /rails/
 COPY Gemfile.lock /rails/
-RUN bundle install -j4 && \
+RUN bundle install -j4 --retry=3 && \
     bundle clean
 
-# main process.
-CMD ["sh", "/rails/docker/start.sh"]
-# CMD ["tail", "-f", "/dev/null"]
+ARG RAILS_ENV
+ARG SECRET_KEY_BASE
+ARG DATABASE_URL
+RUN pwd
+RUN ls -la /rails/
+# RUN bin/setup
+# RUN bin/rails db:seed
 
+# CMD ["sh", "/rails/docker/start.sh"]
+CMD ["tail", "-f", "/dev/null"]

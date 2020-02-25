@@ -28,11 +28,9 @@ ENV BUNDLE_APP_CONFIG $GEM_HOME
 RUN bundle install -j4 --retry=3 && \
     bundle clean
 
-# main process.
 ARG RAILS_ENV
 ARG SECRET_KEY_BASE
 ARG DATABASE_URL
-RUN env
 RUN bin/setup
 RUN bin/rails db:seed
 
