@@ -1,4 +1,4 @@
-name: on push
+name: on_push
 
 on: [push]
 
@@ -69,6 +69,7 @@ jobs:
     needs: rspec
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: get ruby version
       - uses: pCYSl5EDgo/cat@master
         id: ruby_version
