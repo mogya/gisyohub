@@ -76,7 +76,7 @@ jobs:
         path: .ruby_version
     - name: docker build
       run: docker-compose build rails
-      with:
+      env:
         COMPOSE_FILE: docker/docker-compose.production.yml
         SECRET_KEY_BASE: ${{ secrets.RAILS_SECRET_KEY_BASE }}
         RUBY_VERSION: ${{ steps.ruby_version.outputs.text }}
