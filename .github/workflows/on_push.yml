@@ -75,10 +75,8 @@ jobs:
       id: ruby_version
       with:
         path: .ruby_version
-    - name: research1
-      run: pwd
     - name: research2
-      run: ls -la
+      run: echo ${{ steps.ruby_version.outputs.text }}
     - name: docker build
       run: docker-compose build rails
       env:
