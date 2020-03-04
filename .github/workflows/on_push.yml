@@ -85,6 +85,9 @@ jobs:
         COMPOSE_FILE: docker/docker-compose.production.yml
         SECRET_KEY_BASE: ${{ secrets.RAILS_SECRET_KEY_BASE }}
         RUBY_VERSION: ${{ steps.ruby_version.outputs.text }}
+        WEB_PORT: 80
+        RAILS_PORT: 3000
+        NODE_PORT: 3100
     - name: docker tag
       run: docker tag  gisyohub_rails registry.heroku.com/gisyohub/web
     - name: Login to Heroku Container Registry

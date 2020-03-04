@@ -1,18 +1,18 @@
 version: '2'
 services:
-  nginx:
-    build:
-      context: ../
-      dockerfile: docker/nginx/Dockerfile
-    depends_on: 
-      - rails
-    ports:
-     - "80:${WEB_PORT}"
-    environment:
-      - PORT=$WEB_PORT
-      - RAILS_PORT
-      - NODE_PORT
-      - NODE_ENV=production
+  # nginx:
+  #   build:
+  #     context: ../
+  #     dockerfile: docker/nginx/Dockerfile
+  #   depends_on: 
+  #     - rails
+  #   ports:
+  #    - "80:${WEB_PORT}"
+  #   environment:
+  #     - PORT=$WEB_PORT
+  #     - RAILS_PORT
+  #     - NODE_PORT
+  #     - NODE_ENV=production
   rails:
     build:
       context: ../rails
