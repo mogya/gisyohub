@@ -1,4 +1,4 @@
-name: gisyohub CI/CD
+name: on push
 
 on: [push]
 
@@ -64,18 +64,34 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}
   deploy:
     name: deploy
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push'
     needs: rspec
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands
-      uses: appleboy/ssh-action@master
+    - name: get ruby version
+      - uses: pCYSl5EDgo/cat@master
+        id: ruby_version
+        with:
+          path: .ruby_version
+    - name: docker build
+      run: docker-compose build rails
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: /var/www/gisyohub/deploy.sh
+        COMPOSE_FILE: docker/docker-compose.production.yml
+        SECRET_KEY_BASE: ${{ secrets.RAILS_SECRET_KEY_BASE }}
+        RUBY_VERSION: ${{ steps.ruby_version.outputs.text }}
+    - name: docker tag
+      run: docker tag  gisyohub_rails registry.heroku.com/gisyohub/web
+    - name: Login to Heroku Container Registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login      
+    - name: Push to Heroku Container Registry
+      run: docker push registry.heroku.com/gisyohub/web
+    - name: Heroku Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a gisyohub web
     - name: Slack Notification
       uses: homoluctus/slatify@master
       if: always()

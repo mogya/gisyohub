@@ -28,11 +28,5 @@ ENV BUNDLE_APP_CONFIG $GEM_HOME
 RUN bundle install -j4 --retry=3 && \
     bundle clean
 
-ARG RAILS_ENV
-ARG SECRET_KEY_BASE
-ARG DATABASE_URL
-RUN bin/setup
-RUN bin/rails db:seed
-
 CMD ["sh", "/rails/docker/start.sh"]
 # CMD ["tail", "-f", "/dev/null"]
