@@ -75,10 +75,9 @@ jobs:
       id: ruby_version
       with:
         path: rails/.ruby-version
-    - name: research2
-      run: echo ${{ steps.ruby_version.outputs.text }}
+        trim: true
     - name: docker build
-      run: docker-compose build --build-arg RUBY_VERSION=${{ steps.ruby_version.outputs.text }} rails 
+      run: docker-compose build --build-arg RUBY_VERSION=${{ steps.ruby_version.outputs.text }} rails
       env:
         COMPOSE_FILE: docker/docker-compose.production.yml
         SECRET_KEY_BASE: ${{ secrets.RAILS_SECRET_KEY_BASE }}
