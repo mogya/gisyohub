@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 export default {
-  mode: 'spa',
+  mode: 'universal',
   server: {
     host: '0.0.0.0',
     port: process.env.PORT
