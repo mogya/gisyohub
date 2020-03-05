@@ -1,0 +1,12 @@
+# Settings in the [build] context are global and are applied to all contexts
+# unless otherwise overridden by more specific contexts.
+[build]
+  base = "front/"
+  publish = "front/dist/"
+  command = "npm run generate"
+
+[[redirects]]
+  from = "https://gisyohub.netlify.com/*"
+  to = "https://gisyohub.com/:splat"
+  status = 301
+  force = true
