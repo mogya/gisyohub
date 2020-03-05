@@ -6,7 +6,7 @@
         gisyohub
       </h1>
       <h2 class="subtitle">
-        My prime Nuxt.js project
+        My prime Nuxt.js project(by netlify)
       </h2>
       <div class="links">
         <a
