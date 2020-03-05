@@ -85,7 +85,7 @@ jobs:
         RAILS_PORT: 3000
         NODE_PORT: 3100
     - name: docker tag
-      run: docker tag  gisyohub_rails registry.heroku.com/gisyohub/web
+      run: docker tag  docker_rails:latest registry.heroku.com/gisyohub/web
     - name: Login to Heroku Container Registry
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
