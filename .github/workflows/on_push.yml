@@ -1,0 +1,110 @@
+name: on_push
+
+on: [push]
+
+jobs:
+  # rspec:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     TWITTER_KEY: "DUMMY_TWITTER_KEY"
+  #     TWITTER_SECRET: "DUMMY_TWITTER_SECRET"
+  #     TWITTER_ACCESS_TOKEN: "DUMMY_TWITTER_ACCESS_TOKEN"
+  #     TWITTER_ACCESS_SECRET: "DUMMY_TWITTER_ACCESS_SECRET"
+  #     DB_HOST: localhost
+  #     DB_USER: postgres
+  #     DB_PASSWORD: postgres
+  #     RAILS_ENV: test
+  #   services:
+  #     db:
+  #       image: postgres:11
+  #       ports:
+  #         - 5432:5432
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: postgres
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Set up Ruby 2.7
+  #     uses: actions/setup-ruby@v1
+  #     with:
+  #       ruby-version: 2.7.x
+  #   - name: Cache gems
+  #     uses: actions/cache@preview
+  #     with:
+  #       path: rails/vendor/bundle
+  #       key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-gem-
+  #   - name: bundle install
+  #     run: |
+  #       cd rails
+  #       gem install bundler
+  #       bundle config set path '/home/runner/work/gisyohub/gisyohub/rails/vendor/bundle'
+  #       bundle install --jobs 4 --retry 3
+  #   - name: migration
+  #     run: |
+  #       cd rails
+  #       bundle exec rake db:create
+  #       bundle exec rake db:schema:load
+  #   - name: run rspec
+  #     run: |
+  #       cd rails
+  #       bundle exec rspec
+  #   - name: Slack Notification
+  #     if: failure()
+  #     uses: homoluctus/slatify@master
+  #     with:
+  #       type: ${{ job.status }}
+  #       job_name: '*rspec *'
+  #       mention: 'here'
+  #       mention_if: 'failure'
+  #       channel: '#times_gisyohub'
+  #       url: ${{ secrets.SLACK_WEBHOOK_GISYOHUB }}
+  #       commit: true
+  #       token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}
+  deploy:
+    name: deploy
+    # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push'
+    # needs: rspec
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: get ruby version
+      uses: pCYSl5EDgo/cat@master
+      id: ruby_version
+      with:
+        path: rails/.ruby-version
+        trim: true
+    - name: docker build
+      run: docker-compose build --build-arg RUBY_VERSION=${{ steps.ruby_version.outputs.text }} rails
+      env:
+        COMPOSE_FILE: docker/docker-compose.production.yml
+        SECRET_KEY_BASE: ${{ secrets.RAILS_SECRET_KEY_BASE }}
+        WEB_PORT: 80
+        RAILS_PORT: 3000
+        NODE_PORT: 3100
+    - name: docker tag
+      run: docker tag  docker_rails:latest registry.heroku.com/gisyohub/web
+    - name: Login to Heroku Container Registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login      
+    - name: Push to Heroku Container Registry
+      run: docker push registry.heroku.com/gisyohub/web
+    - name: Heroku Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a gisyohub web
+    - name: Slack Notification
+      uses: homoluctus/slatify@master
+      if: always()
+      with:
+        type: ${{ job.status }}
+        job_name: '*deploy *'
+        mention: 'here'
+        mention_if: 'failure'
+        channel: '#times_gisyohub'
+        url: ${{ secrets.SLACK_WEBHOOK_GISYOHUB }}
+        commit: true
+        token: ${{ secrets.GITHUB_TOKEN_GISYOHUB }}

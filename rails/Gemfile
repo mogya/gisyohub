@@ -6,9 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.0'
 
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'mysql2'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-twitter'
+gem 'pg'
 gem 'rails', '~> 6.0.0'
 gem 'twitter', github: 'mogya/twitter-gem'
 gem 'unicorn'

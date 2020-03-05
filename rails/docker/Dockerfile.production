@@ -3,8 +3,6 @@ FROM ruby:${RUBY_VERSION}
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-WORKDIR /rails/
-COPY . /rails/
 # hadolint ignore=DL3008
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
@@ -15,17 +13,20 @@ RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
+WORKDIR /rails/
+COPY . /rails/
+
 RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
 ENV GEM_HOME /usr/local/bundle
 ENV PATH $GEM_HOME/bin:$PATH
 # hadolint ignore=DL3028
 RUN gem install bundler \
-  && bundle config --global path "$GEM_HOME" \
-  && bundle config --global bin "$GEM_HOME/bin"
+  && bundle config --local path "$GEM_HOME" \
+  && bundle config --local bin "$GEM_HOME/bin"
 ENV BUNDLE_APP_CONFIG $GEM_HOME
 
-RUN bundle install -j4 && \
+RUN bundle install -j4 --retry=3 && \
     bundle clean
 
-# main process.
 CMD ["sh", "/rails/docker/start.sh"]
+# CMD ["tail", "-f", "/dev/null"]

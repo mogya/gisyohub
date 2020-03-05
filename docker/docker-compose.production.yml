@@ -1,37 +1,35 @@
-version: '2'
+version: '3'
 services:
-  nginx:
-    build:
-      context: ../
-      dockerfile: docker/nginx/Dockerfile
-    depends_on: 
-      - rails
-    network_mode: "host"
-    ports:
-     - "80:${WEB_PORT}"
-    environment:
-      - PORT=$WEB_PORT
-      - RAILS_PORT
-      - NODE_PORT
-      - NODE_ENV=production
+  # nginx:
+  #   build:
+  #     context: ../
+  #     dockerfile: docker/nginx/Dockerfile
+  #   depends_on: 
+  #     - rails
+  #   ports:
+  #    - "80:${WEB_PORT}"
+  #   environment:
+  #     - PORT=$WEB_PORT
+  #     - RAILS_PORT
+  #     - NODE_PORT
+  #     - NODE_ENV=production
   rails:
     build:
       context: ../rails
       dockerfile: docker/Dockerfile.production
       args:
         - RUBY_VERSION
-    network_mode: "host"
+        - RAILS_ENV=production
+        - SECRET_KEY_BASE
+        - DATABASE_URL
     ports:
       - $RAILS_PORT:$RAILS_PORT
     working_dir: /rails
     environment:
-      - PORT=$RAILS_PORT
       - RAILS_ENV=production
+      - PORT=$RAILS_PORT
       - SECRET_KEY_BASE
-      - DB_HOST
-      - DB_NAME
-      - DB_USER
-      - DB_PASSWORD
+      - DATABASE_URL
       - TWITTER_KEY
       - TWITTER_SECRET
       - TWITTER_ACCESS_TOKEN
@@ -41,7 +39,6 @@ services:
     build:
       context: ../front
       dockerfile: docker/Dockerfile
-    network_mode: "host"
     ports:
      - $NODE_PORT:$NODE_PORT
     working_dir: /front
