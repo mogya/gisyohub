@@ -1,4 +1,5 @@
-![Docker Image CI](https://github.com/mogya/gisyohub/workflows/Docker%20Image%20CI/badge.svg)
+![github CI](https://github.com/mogya/gisyohub/workflows/on_push/badge.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8b52b510-0548-49e3-b011-639d3938ac11/deploy-status)](https://app.netlify.com/sites/gisyohub/deploys)
 
 # depends on
 
