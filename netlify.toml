@@ -6,7 +6,7 @@
   command = "npm run generate"
 
 [[redirects]]
-  from = "https://gisyohub.netlify.com/*"
-  to = "https://gisyohub.com/:splat"
+  from = "https://gisyohub.netlify.com/"
+  to = "https://gisyohub.com/"
   status = 301
   force = true
