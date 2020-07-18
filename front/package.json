@@ -21,7 +21,7 @@
     "@nuxtjs/tailwindcss": "^1.3.2",
     "cookie-universal-nuxt": "^2.0.18",
     "install": "^0.13.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "markdown-it-emoji": "^1.4.0",
     "nuxt": "^2.0.0",
     "vue-tweet-embed": "^2.4.0"
